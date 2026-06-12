@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pero... ¡Aquí no era!</title>
+<style>
+:root{
+  --gold:#e9bc5e;--paper:#ead3a1;--ink:#2b1b12;--wine:#7d1117;
+  --wax:#9b141a;--waxDark:#3e0507;--waxLight:#d23632;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Georgia,"Times New Roman",serif;color:var(--ink)}
+body{
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(255,205,108,.22), transparent 24%),
+    radial-gradient(circle at 8% 20%, rgba(255,196,88,.16), transparent 16%),
+    radial-gradient(circle at 92% 80%, rgba(255,196,88,.16), transparent 18%),
+    repeating-linear-gradient(90deg,#2b160c 0 30px,#1e0f07 30px 60px);
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,255,255,.04),transparent 20%,rgba(0,0,0,.18) 60%,transparent);
+  mix-blend-mode:soft-light;
+}
+.page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px 12px}
+.invitation{width:min(96vw,820px);position:relative;text-align:center}
+.magic span{
+  position:absolute;width:5px;height:5px;border-radius:50%;background:#ffd66f;
+  box-shadow:0 0 14px #ffd66f;opacity:.65;animation:float 5.5s infinite ease-in-out;z-index:4;pointer-events:none;
+}
+@keyframes float{0%,100%{transform:translateY(0) scale(.6);opacity:.25}50%{transform:translateY(-42px) scale(1.2);opacity:1}}
+
+.top-envelope{position:relative;width:100%;height:430px;margin:112px auto 0;border-radius:10px;filter:drop-shadow(0 25px 35px rgba(0,0,0,.55))}
+.top-text{
+  position:absolute;left:50%;top:-104px;width:min(90vw,560px);transform:translateX(-50%);
+  z-index:40;color:#ffe7ad;text-shadow:0 3px 13px rgba(0,0,0,.75);pointer-events:none;text-align:center;
+}
+.top-text h2{margin:0 0 6px;font-weight:400;font-size:clamp(19px,3.3vw,28px)}
+.top-text p{margin:0 auto;max-width:520px;font-size:clamp(12.5px,2.05vw,15.5px);line-height:1.28;color:#fff4cf;text-shadow:0 2px 10px rgba(0,0,0,.78)}
+.ornament{color:var(--gold);font-size:18px;margin:3px 0 7px}
+.guide-arrow{margin-top:7px;color:#ffd36d;font-size:18px;animation:arrowBounce 1.35s infinite ease-in-out}
+@keyframes arrowBounce{0%,100%{transform:translateY(0);opacity:.72}50%{transform:translateY(7px);opacity:1}}
+
+.envelope-body{
+  position:absolute;inset:42px 34px 0;border-radius:12px;
+  background:radial-gradient(circle at 50% 5%, rgba(255,255,255,.24), transparent 26%),linear-gradient(145deg,#d7bd8a,#8e693b);
+  border:1px solid rgba(255,228,172,.42);overflow:hidden;box-shadow:inset 0 0 35px rgba(70,39,15,.36);
+}
+.envelope-body::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(35deg,transparent 49.35%,rgba(75,43,20,.5) 50%,transparent 50.75%),
+             linear-gradient(-35deg,transparent 49.35%,rgba(75,43,20,.43) 50%,transparent 50.75%);
+}
+.envelope-flap{
+  position:absolute;left:34px;right:34px;top:42px;height:205px;border-radius:12px 12px 0 0;
+  background:linear-gradient(180deg,rgba(234,211,161,.98),rgba(165,119,62,.96));
+  clip-path:polygon(0 0,100% 0,50% 100%);z-index:4;box-shadow:inset 0 -12px 28px rgba(55,30,13,.32);
+  transition:transform 1.2s ease;transform-origin:top center;
+}
+.seal{
+  position:absolute;left:50%;top:240px;width:166px;height:158px;transform:translate(-50%,-50%);
+  z-index:30;border:none;cursor:pointer;background:transparent;-webkit-tap-highlight-color:transparent;transition:.4s ease;
+}
+.wax{
+  position:absolute;inset:0;border-radius:47% 53% 45% 55% / 52% 44% 56% 48%;
+  background:radial-gradient(circle at 28% 18%,rgba(255,140,98,.78),transparent 12%),
+             radial-gradient(circle at 70% 70%,rgba(48,0,0,.55),transparent 23%),
+             radial-gradient(circle at 38% 30%,var(--waxLight),var(--wax) 48%,var(--waxDark) 100%);
+  box-shadow:inset -16px -18px 28px rgba(0,0,0,.54),inset 10px 11px 22px rgba(255,177,132,.28),
+             0 15px 32px rgba(0,0,0,.55),0 0 30px rgba(255,191,88,.38);
+  animation:sealPulse 2.1s infinite ease-in-out;
+}
+.wax::before{
+  content:"";position:absolute;inset:17px;border-radius:50%;border:4px solid rgba(55,0,0,.48);
+  box-shadow:inset 0 8px 12px rgba(255,213,154,.17),inset 0 -10px 15px rgba(0,0,0,.5);
+}
+.wax::after{
+  content:"";position:absolute;inset:-12px;z-index:-1;border-radius:52% 48% 57% 43%;
+  background:radial-gradient(circle at 7% 53%,#831116 0 13px,transparent 14px),
+             radial-gradient(circle at 28% 100%,#8a1217 0 14px,transparent 15px),
+             radial-gradient(circle at 75% 4%,#b91f24 0 11px,transparent 12px),
+             radial-gradient(circle at 96% 48%,#6d0b10 0 15px,transparent 16px);
+}
+.wax-dents{position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at 36% 41%,rgba(25,0,0,.42) 0 3px,transparent 4px),radial-gradient(circle at 72% 56%,rgba(25,0,0,.36) 0 4px,transparent 5px),linear-gradient(105deg,transparent 42%,rgba(25,0,0,.55) 43%,transparent 44%);opacity:.85}
+.seal-mark{
+  position:absolute;left:0;right:0;top:34px;z-index:5;color:#f1bf68;pointer-events:none;
+  text-shadow:0 4px 0 rgba(65,5,4,.95),0 -1px 0 rgba(255,239,176,.55),0 0 8px rgba(0,0,0,.48);
+}
+.seal-mark .ph{display:block;font-size:44px;line-height:.82;font-weight:800;letter-spacing:3px}
+.seal-mark .q{display:block;font-size:76px;line-height:.78;font-weight:900}
+.crack{position:absolute;inset:18px;opacity:0;background:linear-gradient(110deg,transparent 0 42%,rgba(20,0,0,.85) 43%,transparent 44%);clip-path:polygon(48% 5%,56% 20%,50% 36%,61% 51%,54% 66%,60% 93%,43% 64%,48% 50%,39% 35%);z-index:8;transition:opacity .22s ease}
+.seal:hover{transform:translate(-50%,-50%) scale(1.04)}
+@keyframes sealPulse{50%{box-shadow:inset -16px -18px 28px rgba(0,0,0,.54),inset 10px 11px 22px rgba(255,177,132,.28),0 15px 32px rgba(0,0,0,.55),0 0 42px rgba(255,207,105,.75)}}
+.down{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);z-index:10;color:#ffd36d;width:46px;height:46px;border:1px solid rgba(255,210,110,.7);border-radius:50%;background:rgba(49,22,8,.75);display:flex;align-items:center;justify-content:center;font-size:25px}
+
+.card-wrap{
+  position:absolute;left:50%;top:50%;width:min(94vw,720px);filter:drop-shadow(0 25px 35px rgba(0,0,0,.58));
+  opacity:0;transform:translate(-50%,-42%) scale(.86);pointer-events:none;transition:opacity .9s ease, transform 1.1s cubic-bezier(.16,1,.3,1);
+}
+.card{
+  position:relative;z-index:2;margin:0 auto;padding:40px 38px 34px;
+  background:radial-gradient(circle at 50% 0,rgba(255,255,255,.42),transparent 32%),linear-gradient(rgba(241,218,169,.98),rgba(216,184,122,.98));
+  border:2px solid rgba(225,184,94,.7);border-radius:8px;max-height:88vh;overflow:auto;box-shadow:inset 0 0 40px rgba(93,58,20,.18);
+}
+.card::before{content:"";position:absolute;inset:18px;border:1.5px solid rgba(156,105,33,.55);pointer-events:none}
+.card h1{margin:8px 0 6px;text-transform:uppercase;font-size:clamp(26px,4.8vw,42px);line-height:.95;color:#831116;letter-spacing:1px}
+.card h1 span:first-child{color:#22150f}
+.card p{max-width:590px;margin:10px auto;font-size:18px;line-height:1.45}
+.hello{text-align:left;color:#831116;font-weight:bold;font-size:22px!important}
+.highlight{
+  margin:18px auto;padding:12px 16px;border:2px solid rgba(145,98,31,.55);color:#831116;font-weight:900;
+  font-family:Arial,sans-serif;font-size:18px;background:rgba(255,245,210,.32);max-width:560px;
+}
+.ideas{
+  text-align:left;max-width:560px;margin:12px auto 18px;padding:14px 18px;border-radius:14px;
+  background:linear-gradient(135deg,#fff4d6,#ffe2a8);border:2px solid #d4a017;color:#5a2d00;font-family:Arial,sans-serif;font-size:15px;line-height:1.55;box-shadow:0 0 18px rgba(212,160,23,.25);
+}
+.ideas b{color:#b30000;font-size:18px}
+.icons,.details{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px auto;max-width:620px;font-family:Arial,sans-serif;font-size:14px;line-height:1.35}
+.icons div{padding:0 14px;border-left:1px solid rgba(130,89,35,.32)}
+.icons b{display:block;color:#9a6e23;font-size:34px;margin-bottom:5px}
+.details{border-top:1px solid rgba(130,89,35,.35);border-bottom:1px solid rgba(130,89,35,.35)}
+.details div{padding:13px 10px;border-left:1px solid rgba(130,89,35,.28)}
+.details b{display:block;color:#831116;font-size:15px;margin-bottom:3px}
+.footer{color:#831116;font-size:30px;font-style:italic;margin:18px 0 8px}
+.map,.close-invite{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:280px;max-width:90%;padding:14px 22px;border-radius:999px;
+  border:1px solid rgba(255,216,121,.75);background:linear-gradient(135deg,#6f0c11,#9a151d,#c5983e);
+  color:#ffe6a5;text-decoration:none;font-family:Arial,sans-serif;font-weight:900;box-shadow:0 8px 22px rgba(0,0,0,.35);pointer-events:none;opacity:.65;margin-top:10px;
+}
+.close-invite{cursor:pointer;background:linear-gradient(135deg,#4a070a,#8b1118,#c5983e)}
+.map-note{margin-top:8px;color:#ffe6a5;text-shadow:0 2px 8px #000}
+.controls{position:fixed;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:14px;padding:0 20px;pointer-events:none;z-index:99999}
+.control{
+  width:170px;min-height:54px;border-radius:999px;border:1px solid rgba(255,215,160,.85);background:linear-gradient(135deg,#d51d2a,#7b0b11);
+  color:#fff4d8;font-family:Arial,sans-serif;font-size:11px;font-weight:bold;box-shadow:0 0 22px rgba(213,29,42,.55),0 8px 20px rgba(0,0,0,.38);
+  display:none;align-items:center;justify-content:center;flex-direction:column;pointer-events:auto;cursor:pointer;
+}
+.opening .crack{opacity:1}
+.opened .card-wrap{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
+.opened .map,.opened .close-invite{pointer-events:auto;opacity:1}
+.opened .map-note{display:none}
+.opened .seal{animation:none;top:340px;opacity:0;transform:translate(-50%,-50%) rotate(32deg) scale(.55);pointer-events:none}
+.opened .envelope-flap{transform:rotateX(155deg)}
+.opened .top-envelope{opacity:0;transform:translateY(80px) scale(.82);pointer-events:none;transition:opacity .7s ease,transform .9s ease}
+.opened .control{display:flex!important}
+.disintegrating .card{animation:cardDisintegrate 1.4s ease forwards;filter:brightness(1.2) saturate(1.15)}
+@keyframes cardDisintegrate{0%{opacity:1;transform:translateY(0) scale(1)}45%{opacity:.85;transform:translateY(-8px) scale(1.015)}100%{opacity:0;transform:translateY(-42px) scale(.86) rotate(-1.5deg);filter:blur(8px) brightness(1.7)}}
+.burst,.dust{position:fixed;width:7px;height:7px;border-radius:50%;background:#ffe28c;box-shadow:0 0 14px #ffd46b;pointer-events:none;z-index:99998}
+.burst{animation:burst 1.9s ease-out forwards}
+.dust{animation:dustFly 1.55s ease-out forwards}
+@keyframes burst{0%{transform:translate(0,0) scale(.3);opacity:1}100%{transform:translate(var(--x),var(--y)) scale(1.2);opacity:0}}
+@keyframes dustFly{0%{opacity:1;transform:translate(0,0) scale(.6)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.25)}}
+
+@media(max-width:650px){
+  .page{padding:8px}
+  .invitation{width:100%}
+  .top-envelope{height:320px;margin:105px auto 0}
+  .envelope-body{inset:40px 4px 0}
+  .envelope-flap{left:4px;right:4px;top:40px;height:150px}
+  .top-text{top:-118px;width:min(92vw,320px)}
+  .top-text h2{font-size:17px}
+  .top-text p{font-size:11px;line-height:1.3}
+  .seal{top:205px;width:118px;height:112px}
+  .seal-mark{top:24px}
+  .seal-mark .ph{font-size:28px}
+  .seal-mark .q{font-size:50px}
+  .card-wrap{width:96vw}
+  .card{padding:20px 14px;max-height:90vh}
+  .card h1{font-size:28px!important}
+  .card p{font-size:15px}
+  .highlight{font-size:15px;padding:10px}
+  .ideas{font-size:13px;padding:12px}
+  .icons,.details{grid-template-columns:1fr}
+  .icons div,.details div{border-left:0;border-top:1px solid rgba(130,89,35,.25);padding:10px}
+  .map,.close-invite{min-width:90%;font-size:13px;padding:12px}
+  .control{width:90vw;max-width:220px}
+  .footer{font-size:22px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<main class="invitation" id="invitation">
+  <div class="magic" aria-hidden="true">
+    <span style="left:3%;top:13%;animation-delay:.2s"></span><span style="left:13%;top:44%;animation-delay:1s"></span>
+    <span style="left:88%;top:9%;animation-delay:.7s"></span><span style="left:96%;top:53%;animation-delay:1.5s"></span>
+    <span style="left:9%;top:86%;animation-delay:2s"></span><span style="left:82%;top:91%;animation-delay:1.2s"></span>
+  </div>
+
+  <section class="top-envelope">
+    <div class="envelope-body"></div>
+    <div class="envelope-flap"></div>
+    <div class="top-text">
+      <h2>Una invitación especial te espera.</h2>
+      <div class="ornament">— ❧ —</div>
+      <p>Pincha en el sello rojo para abrir esta invitación y descubrir los detalles de este momento único.</p>
+      <div class="guide-arrow">▼</div>
+    </div>
+    <button class="seal" id="seal" type="button" aria-label="Abrir invitación">
+      <span class="wax"></span><span class="wax-dents"></span><span class="crack"></span>
+      <span class="seal-mark"><span class="ph">P H</span><span class="q">?</span></span>
+    </button>
+    <div class="down">⌄</div>
+  </section>
+
+  <section class="card-wrap">
+    <article class="card">
+      <h1><span>PERO...</span> ¡AQUÍ NO ERA!</h1>
+      <div class="ornament">— ❧ —</div>
+      <p class="hello">Hola:</p>
+      <p>Estás cordialmente invitado(a) a un evento único de Paul Harris.</p>
+      <p>Prepárate para una tarde llena de sorpresas, risas y momentos inolvidables, donde solo existe un requisito para ingresar:</p>
+      <div class="highlight">¡VEN DISFRAZADO(A) DE ALGO QUE DEFINITIVAMENTE NO ERA EL LUGAR NI EL MOMENTO!</div>
+      <div class="ideas">
+        <b>Algunas ideas:</b><br>
+        • Aquí no era... el partido de fútbol.<br>
+        • Aquí no era... la clase de gimnasia.<br>
+        • Aquí no era... de asistente de vuelo.<br>
+        • Aquí no era... para el safari.<br>
+        • Aquí no era... para el Quirófano.<br>
+        • Aquí no era... las clases de cueca.
+      </div>
+      <p>Deja volar tu imaginación y usa tu creatividad al 100%.</p>
+      <div class="icons">
+        <div><b>♫</b>Música con artistas ya consagrados y nuevos talentos de la congregación.</div>
+        <div><b>🍽</b>Debes llevar algo rico para compartir durante la convivencia.</div>
+        <div><b>🎉</b>Mucha, pero mucha diversión.</div>
+      </div>
+      <div class="details">
+        <div><b>FECHA:</b>Sábado 4 Julio</div><div><b>HORA:</b>17:30 hrs.</div><div><b>LUGAR:</b>Paul Harris Sur #1.000</div>
+      </div>
+      <div class="footer">¡No te lo pierdas!</div>
+      <p>Te esperamos para vivir juntos una experiencia donde todo parecerá estar fuera de lugar... y precisamente por eso será inolvidable.</p>
+      <a class="map" id="mapBtn" href="https://www.google.com/maps/search/?api=1&query=Paul%20Harris%20Sur%201000" target="_blank" rel="noopener">📍 VER EN GOOGLE MAPS</a><br>
+      <button class="close-invite" id="closeInviteBtn" type="button">✦ CERRAR INVITACIÓN ✦</button>
+      <div class="map-note">Se habilitará al abrir la invitación</div>
+    </article>
+  </section>
+
+  <audio id="music" loop preload="auto" playsinline>
+  <source src="audio_invitacion.mp3" type="audio/mpeg">
+</audio>
+</main>
+</div>
+
+<div class="controls">
+  <button class="control" id="musicBtn" type="button"><b>⏹</b>DETENER MÚSICA</button>
+</div>
+
+<script>
+const root=document.getElementById('invitation');
+const seal=document.getElementById('seal');
+const music=document.getElementById('music');
+const musicBtn=document.getElementById('musicBtn');
+const mapBtn=document.getElementById('mapBtn');
+const closeInviteBtn=document.getElementById('closeInviteBtn');
+let opened=false, musicMuted=false, fadeTimer=null;
+
+function burstMagic(){
+  const rect=seal.getBoundingClientRect(), cx=rect.left+rect.width/2, cy=rect.top+rect.height/2+window.scrollY;
+  for(let i=0;i<62;i++){const s=document.createElement('span');s.className='burst';s.style.left=cx+'px';s.style.top=cy+'px';s.style.setProperty('--x',(Math.random()*520-260)+'px');s.style.setProperty('--y',(Math.random()*360-180)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),2200);}
+}
+function invitationDust(){
+  const card=document.querySelector('.card'), rect=card.getBoundingClientRect();
+  for(let i=0;i<95;i++){const d=document.createElement('span');d.className='dust';d.style.left=(rect.left+Math.random()*rect.width)+'px';d.style.top=(rect.top+Math.random()*rect.height)+'px';d.style.setProperty('--x',(Math.random()*520-260)+'px');d.style.setProperty('--y',(-80-Math.random()*320)+'px');document.body.appendChild(d);setTimeout(()=>d.remove(),1900);}
+}
+function startMusic(){
+  if(!opened) return;
+  clearInterval(fadeTimer);
+  music.volume = 0.75;
+  musicMuted = false;
+  musicBtn.innerHTML = '<b>⏹</b>DETENER MÚSICA';
+  musicBtn.style.background = 'linear-gradient(135deg,#d51d2a,#7b0b11)';
+  try { music.currentTime = 0; } catch(e) {}
+  const p = music.play();
+  if(p){
+    p.catch(() => {
+      musicBtn.innerHTML = '<b>▶️</b>TOCAR MÚSICA';
+      musicBtn.style.background = 'linear-gradient(135deg,#1f9d55,#0d5f35)';
+    });
+  }
+}
+function stopMusic(){
+  music.pause();
+  musicMuted = true;
+  musicBtn.innerHTML = '<b>▶️</b>TOCAR MÚSICA';
+  musicBtn.style.background = 'linear-gradient(135deg,#1f9d55,#0d5f35)';
+}
+function fadeOutMusic(){
+  clearInterval(fadeTimer);
+  fadeTimer=setInterval(()=>{if(music.volume>.04) music.volume=Math.max(0,music.volume-.04); else{clearInterval(fadeTimer);music.pause();music.currentTime=0;music.volume=.58;musicMuted=true;}},70);
+}
+function openInvitation(e){
+  e.preventDefault(); e.stopPropagation(); if(opened)return;
+  opened=true; root.classList.remove('disintegrating'); root.classList.add('opening'); burstMagic();
+  setTimeout(()=>{root.classList.add('opened');document.body.style.overflow='auto';startMusic();},260);
+}
+function closeInvitation(e){
+  e.preventDefault(); e.stopPropagation(); if(!opened)return;
+  root.classList.add('disintegrating'); invitationDust(); fadeOutMusic();
+  setTimeout(()=>{opened=false;root.classList.remove('opened','opening','disintegrating');document.body.style.overflow='hidden';window.scrollTo({top:0,behavior:'smooth'});},1450);
+}
+seal.addEventListener('click',openInvitation);
+mapBtn.addEventListener('click',e=>{if(!opened){e.preventDefault();e.stopPropagation();}});
+closeInviteBtn.addEventListener('click',closeInvitation);
+musicBtn.addEventListener('click',()=>{
+  if(!opened) return;
+  if(music.paused || musicMuted) startMusic();
+  else stopMusic();
+});
+</script>
+</body>
+</html>
